@@ -1,0 +1,23 @@
+#!/usr/bin/env jruby
+
+require 'jruby/core_ext'
+#require 'facture'
+require 'odbutil'
+
+Dir["lib\*.jar"].each { |jar| require jar }
+$: << "src/main/ruby"
+
+#Facture.new(ARGV).run
+
+
+a = ODBUtil.new
+#[3,8,9].each { |no| 
+#   puts "infoclient for projet no #{no}="
+#   puts  a.getClientInfo(a.getClientForInvoice(no))
+#}
+
+r = a.doQuery("select from client where @rid='#32:0'")
+p r
+p r[0]["@rid"]
+r[0]["in_forClient"].each {|x| puts x}
+
