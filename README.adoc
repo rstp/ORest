@@ -1,1 +1,57 @@
 == OrientDB RESTFull testing
+
+This README describes a jruby-complete project which features a jar bootstrap mecanism.
+
+Ref: http://blog.nicksieger.com/articles/2009/01/10/jruby-1-1-6-gems-in-a-jar/
+
+# System dependencies
+    - jruby-complete-9.0.1.0.jar (obsolete)
+    - see Gemfile.lock
+
+# Setup
+    1. Install bundler in vendor/gem_home
+        java -jar vendor/jruby-complete-9.0.1.0.jar -S gem install -i vendor/gem_home --no-rdoc --no-ri bundler
+
+    2. Specify gems required in Gemfile
+
+    3. Install the required gems (Gemfile)
+        GEM_HOME=vendor/gem_home GEM_PATH=vendor/gem_home  jruby --ng -S bundle install --path=vendor/bundle --binstubs
+
+    4.  Packaging the gems puts them into vendor/cache and means that you can bundle install without having to
+        access rubygems.org
+        GEM_HOME=vendor/gem_home GEM_PATH=vendor/gem_home jruby --ng -S bundle package
+
+
+# Configuration
+#
+
+# Database creation
+    none
+
+# Database initialization
+    none
+
+# How to run the test suite
+    rake test
+
+# Services (job queues, cache servers, search engines, etc.)
+
+# Deployment instructions
+   Packaging the application for standalone jar file
+      1. create skeleton finruby.jar file
+         cp xyz/jruby-complete-9.0.1.0.jar finruby.jar
+
+      2. incorporate the gems in the jruby-complete.jar
+         jar -uf finruby.jar -C vendor/bundle/jruby/2.2.0 .
+
+      3. add the bootstrap to the jar file
+         jar ufe finruby.jar org.jruby.JarBootstrapMain -C bin jar-bootstrap.rb
+
+      4. add the application scripts
+         jar uf finruby.jar lib
+
+# Running the application
+   1. java -jar finruby.jar [clean | load] <file>
+
+
+=== END

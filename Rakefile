@@ -31,7 +31,7 @@ namespace :ant do
     jar_file        = @jar_file
     java_test_dir   = @java_test_dir
     test_report_dir = @test_report_dir
-  
+
    desc "Compile the code using Ant"
    task :compileall => "clean" do
       ant.mkdir :dir => classes_dir
@@ -46,7 +46,7 @@ namespace :ant do
           fileset :dir => @lib_dir, :includes => "**/*.jar"
       end
     end
-  end 
+  end
 
    desc "Create a jar file of the compiled code using Ant"
    task :jar => "ant:compileall" do
@@ -54,12 +54,12 @@ namespace :ant do
       ant.delete :file => jar_file #, :verbose => true
       ant.jar :destfile => jar_file, :basedir => classes_dir
    end
-  
+
   task :java_test => "ant:compileall" do
-     puts "begin_tests" 
-     
+     puts "begin_tests"
+
       ant.mkdir :dir => test_report_dir
- 
+
       ant.junit :fork => "yes", :forkmode => "once", :printsummary => "yes",
        :haltonfailure => "no", :failureproperty => "tests.failed" do
           classpath do
@@ -71,22 +71,22 @@ namespace :ant do
             fileset :dir => java_test_dir, :includes => '**/*Test.java'
          end
       end
-      
+
       if ant.project.getProperty("tests.failed")
           report
           puts "FAILURE: One or more tests failed. \nPlease check the test report in <<#{test_report_html}>>  for more info."
       end
       puts "end tests"
    end
-   
+
    def report
          ant.junitreport :todir => test_report_dir do
             fileset :dir => test_report_dir, :includes => "TEST-*.xml"
             report :format => "frames", :todir => test_report_html
          end
    end
-   
-   
+
+
     #task :make_war => :make_jars do
     #  ant.mkdir :dir => DIST_DIR
     #  ant.war :warfile => "#{DIST_DIR}/#{PROJECT_NAME}.war", :webxml => "src/main/webapp/WEB-INF/web.xml" do
@@ -103,7 +103,7 @@ namespace :ant do
     #    classpath :location => "src/main/resources"
     #    classpath :refid => "classpath"
     #  end
-    #end  
+    #end
 end
 
 
@@ -111,8 +111,8 @@ end
 require 'rake/testtask'
 Rake::TestTask.new do |task|
   task.libs << [@ruby_script_dir]
-  task.test_files = FileList["#{@ruby_test_dir}/*Test.rb"]
-  task.pattern = '*Test.rb'
+  task.test_files = FileList["#{@ruby_test_dir}/Test_*.rb"]
+  task.pattern = 'Test_*.rb'
    task.verbose = true
 end
 
@@ -147,4 +147,4 @@ task :java_test => ["ant:java_test"]
 require 'rake/clean'
     CLEAN << @java_build_dir
 
-task :default => "ruby:run"
+task :default => "ruby:rung"
