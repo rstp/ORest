@@ -4,7 +4,7 @@ require 'json'
 
 class RESTorient
    def initialize
-      @client = Orientdb4r.client :host => 'localhost',
+      @client = Orientdb4r.client :host => 'airstp',
          :port => 2480,
          :ssl => false
       @client.connect :database => 'projets',

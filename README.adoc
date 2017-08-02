@@ -10,7 +10,7 @@ Ref: http://blog.nicksieger.com/articles/2009/01/10/jruby-1-1-6-gems-in-a-jar/
 
 # Setup
     1. Install bundler in vendor/gem_home
-        java -jar vendor/jruby-complete-9.0.1.0.jar -S gem install -i vendor/gem_home --no-rdoc --no-ri bundler
+        jruby --ng -S gem install -i vendor/gem_home --no-rdoc --no-ri bundler
 
     2. Specify gems required in Gemfile
 
