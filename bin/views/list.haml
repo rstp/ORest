@@ -1,3 +1,6 @@
+%head 
+  %link(type="text/css" rel="stylesheet" href="/css/main.css")
+
 %a(href="/contacts/new") Ajoute un Contact
 %table
   %tr
@@ -8,8 +11,8 @@
     %tr
       %td= c['nom']
       %td= c['tele']
-      %td= c['CID']
+      %td= em(c['CID'])
       %td
-        %a(href="/contacts/#{c['id']}") Voir
+        %a.red(href="/contacts/#{c['id']}") Voir
       %td
-        %a(href="/contacts/#{c['id']}/edit") Edit
+        %a.blue(href="/contacts/#{c['id']}/edit") Edit

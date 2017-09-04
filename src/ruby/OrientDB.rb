@@ -36,7 +36,7 @@ class OrientDB
   # @return object nil or the client's connection
   #
   ##
-  def makeconnect(database, user='admin', password='admin')
+  def makeconnection(database, user='admin', password='admin')
     begin
       @client.connect :database => database, :user => user, :password => password
     rescue => err
@@ -67,5 +67,11 @@ class OrientDB
 #    end
 
   end
+
+  def countClients
+    count = @client.query "select count(*) from client"
+    count[0]['count']    
+  end
+
 #end class OrientDB
 end
