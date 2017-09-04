@@ -1,0 +1,16 @@
+%h3= "Contact ##{c.id}"
+%table
+  %tr
+    %td{:width=>"200px;"}
+    %td
+  %tr
+    %td First Name
+    %td= c.firstname
+  %tr
+    %td Last Name
+    %td= c.lastname
+  %tr
+    %td Email
+    %td= c.email
+    %a(href="/contacts/#{c.id}/edit") Edit Contact
+

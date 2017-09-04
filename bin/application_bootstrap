@@ -1,14 +1,12 @@
 #!/usr/bin/env jruby
 
 require 'jruby/core_ext'
-#require 'facture'
-require 'restinit'
 
 Dir["lib\*.jar"].each { |jar| require jar }
 $: << "src/main/ruby"
 
-#Facture.new(ARGV).run
 
+require 'restinit'
 
-a = RESTorient.new
-a.run
+#db = RESTorient.new
+#a.run

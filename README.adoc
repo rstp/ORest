@@ -1,14 +1,16 @@
-== OrientDB RESTFull testing
+== Projet ORest
+OrientDB RESTFull testing
 
-This README describes a jruby-complete project which features a jar bootstrap mecanism.
+This README describes a project to test and develop a jruby based program access to OrientDB data
+The project features a jar bootstrap mecanism.
 
 Ref: http://blog.nicksieger.com/articles/2009/01/10/jruby-1-1-6-gems-in-a-jar/
 
-# System dependencies
+=== System dependencies
     - jruby-complete-9.0.1.0.jar (obsolete)
     - see Gemfile.lock
 
-# Setup
+=== Setup
     1. Install bundler in vendor/gem_home
         jruby --ng -S gem install -i vendor/gem_home --no-rdoc --no-ri bundler
 
@@ -22,21 +24,22 @@ Ref: http://blog.nicksieger.com/articles/2009/01/10/jruby-1-1-6-gems-in-a-jar/
         GEM_HOME=vendor/gem_home GEM_PATH=vendor/gem_home jruby --ng -S bundle package
 
 
-# Configuration
-#
+=== Configuration
 
-# Database creation
+
+=== Database creation
     none
 
-# Database initialization
+=== Database initialization
     none
 
-# How to run the test suite
+=== How to run the test suite
     rake test
 
-# Services (job queues, cache servers, search engines, etc.)
+=== Services (job queues, cache servers, search engines, etc.)
 
-# Deployment instructions
+=== Deployment instructions
+__inop__
    Packaging the application for standalone jar file
       1. create skeleton finruby.jar file
          cp xyz/jruby-complete-9.0.1.0.jar finruby.jar
@@ -50,8 +53,8 @@ Ref: http://blog.nicksieger.com/articles/2009/01/10/jruby-1-1-6-gems-in-a-jar/
       4. add the application scripts
          jar uf finruby.jar lib
 
-# Running the application
-   1. java -jar finruby.jar [clean | load] <file>
+=== Running the application
+   tbd
 
 
 === END

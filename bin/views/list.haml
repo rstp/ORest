@@ -1,0 +1,15 @@
+%a(href="/contacts/new") Ajoute un Contact
+%table
+  %tr
+    %th{:width=>"100px;"}
+    %th{:width=>"100px;"}
+    %th{:width=>"300px;"}
+  - cs.each do|c|
+    %tr
+      %td= c['nom']
+      %td= c['tele']
+      %td= c['CID']
+      %td
+        %a(href="/contacts/#{c['id']}") Voir
+      %td
+        %a(href="/contacts/#{c['id']}/edit") Edit

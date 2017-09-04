@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Using instance variables</title>
+</head>
+<body>
+   <% @liste.each do |c| %>
+      <p>nom=<%= c['nom'] %>&nbsp;&nbsp;tele=<%= c['tele'] %></p>
+   <% end %>
+</body>
+</html>

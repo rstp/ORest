@@ -1,0 +1,27 @@
+%h2 Nouveau contact
+%form(action="#{action}" method="POST")
+  %table
+    %tr
+      %td{:width=>"150px;"}
+        %label(for="firstname") Pr&eacute;nom
+      %td{:width=>"150px;"}
+        %input(type="text" name="firstname" value="#{c.firstname}")
+    %tr
+      %td
+        %label(for="lastname") Nom
+      %td
+        %input(type="text" name="lastname" value="#{c.lastname}")
+  
+    %tr
+      %td
+        %label(for="email") Email
+      %td
+        %input(type="text" name="email" value="#{c.email}")
+  
+  %br
+  %input(type="submit" value="Sauve")
+  %input(type="reset")
+
+  - unless c.id == 0
+    %form(action="/contacts/#{c.id}/destroy" method="POST")
+      %input(type="submit" value="Oublie")
