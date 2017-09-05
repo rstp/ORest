@@ -11,16 +11,20 @@ GEM
       domain_name (~> 0.5)
     json (2.1.0-java)
     logger (1.2.8)
-    mime-types (3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
+    mime-types (2.99.3)
+    mustermann (1.0.1)
     netrc (0.11.0)
     nokogiri (1.8.0-java)
+    orientdb4r (0.5.1)
+      rest-client (~> 1.7)
+    rack (2.0.3)
+    rack-protection (2.0.0)
+      rack
     rake (12.0.0)
-    rest-client (2.0.2)
+    rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -34,6 +38,11 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    sinatra (2.0.0)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.0)
+      tilt (~> 2.0)
     temple (0.8.0)
     tilt (2.0.8)
     unf (0.1.4-java)
@@ -42,13 +51,15 @@ PLATFORMS
   java
 
 DEPENDENCIES
-  haml
+  haml (>= 5.0.2)
   json
-  logger
+  logger (= 1.2.8)
   nokogiri
-  rake
-  rest-client
-  rspec
+  orientdb4r (= 0.5.1)
+  rake (>= 12.0.0)
+  rest-client (= 1.8.0)
+  rspec (>= 3.6.0)
+  sinatra (>= 2.0.0)
 
 BUNDLED WITH
-   1.15.3
+   1.15.4

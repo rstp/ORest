@@ -9,9 +9,9 @@
 
 JRUBY_COMPLETE = "vendor/jruby-complete-9.1.12.0.jar"
 jars = FileList["#{@lib_dir}/**/*.jar"].join(':')
-GEM_PATH="vendor/bundle"
+GEM_PATH="vendor/bundle/jruby/2.3.0"
 #JRUBY = "java -classpath .:#{JRUBY_COMPLETE} org.jruby.Main "
-LOCALGEMS = "GEM_HOME=#{GEM_PATH} GEM_PATH=#{GEM_PATH} "
+APP_GEMS = "GEM_PATH=#{GEM_PATH} "
 JRUBY = "/usr/local/jruby/bin/jruby  "
 
 
@@ -31,14 +31,14 @@ namespace :ruby do
    task :run do
      arg =  "#{@ruby_bin_dir}/application_bootstrap"
      libs = "#{@ruby_script_dir}:#{@ruby_bin_dir}:#{@lib_dir}"
-     sh %!#{LOCALGEMS} #{JRUBY} -I #{libs} #{arg}!
+     sh %!#{APP_GEMS} #{JRUBY} -S -I #{libs} #{arg}!
 #     sh "/usr/local/jruby/bin/jruby -I #{libs} #{arg}"
    end
    # Run with nailgun
    task :rung do
      arg =  "#{@ruby_bin_dir}/application_bootstrap"
      libs = "#{@ruby_script_dir}:#{@ruby_bin_dir}:#{@lib_dir}"
-     sh %!#{LOCALGEMS} #{JRUBY} --ng -I #{libs} #{arg}!
+     sh %!#{APP_GEMS} #{JRUBY}  --ng  -I #{libs} #{arg}!
 #     sh "/usr/local/jruby/bin/jruby --ng -I #{libs} #{arg}"
    end
 

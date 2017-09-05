@@ -49,13 +49,19 @@ class OrientDB
     @client.disconnect
   end
   
-  
+  def findClient(id)
+    oneclient = @client.query("select from client where CID=#{id}")
+    if oneclient.size === 0
+      nil
+    end
+    oneclient
+  end
   def listClients
     
 #    begin
 #      makeconnect(database)
 
-    @liste = @client.query("select CID,nom,addresse,tele from client") || {}
+    @liste = @client.query("select from client") || {}
 
 #      response.each do |r|
 #         puts "nom => #{r['nom']} addresse => #{r['addresse']}"

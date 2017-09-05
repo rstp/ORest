@@ -2,11 +2,13 @@
 
 require 'jruby/core_ext'
 
-Dir["lib\*.jar"].each { |jar| require jar }
-$: << "src/main/ruby"
+
+#Dir["lib\*.jar"].each { |jar| require jar }
+
+lib = File.expand_path('../src/ruby/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
 
 
 require 'restinit'
 
-#db = RESTorient.new
-#a.run

@@ -1,16 +1,16 @@
-%h3= "Contact ##{c.id}"
+%h3= "Client #{c['CID']}"
 %table
   %tr
     %td{:width=>"200px;"}
     %td
   %tr
-    %td First Name
-    %td= c.firstname
+    %td Nom
+    %td= c['nom']
   %tr
-    %td Last Name
-    %td= c.lastname
+    %td Addresse
+    %td= c['addresse']
   %tr
-    %td Email
-    %td= c.email
-    %a(href="/contacts/#{c.id}/edit") Edit Contact
-
+    %td T&eacute;l&eacute;phone
+    %td= c['tele']
+    
+%a.blue(href="/client/#{c['CID']}") Edit
