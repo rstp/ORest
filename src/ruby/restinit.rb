@@ -4,9 +4,12 @@ require 'sinatra'
 require 'haml'
 require 'OrientDB'
 
+DEBUG = true
+
 configure do
   enable :sessions
   set :port, 4568
+  set :haml, :format => :html5
 end
 
 before do
@@ -43,22 +46,39 @@ get '/' do
   puts "bonjour\n"
 end
   
+# form to show one client's details
 get '/client/:id' do
-#  "client id=#{params[:id]}"
+  #  "client id=#{params[:id]}"
   id = params[:id].to_i
-  haml :show, :locals => { :c => db.findClient(id)[0] }
+  haml :show, :locals => { :c => db.findClient(id) }
 end
 
-get '/clients' do
-#    unless protected
+# show list of all clients
+get '/clients/?' do
   nb = db.countClients
   "voici les #{nb} contacts"
-#    @liste = db.listClients
-#    erb :liste
-
+#  p db.listClients if DEBUG
   haml :list, :locals => { :cs => db.listClients }
-#    end
 end
+
+# Show form to create new contact
+get '/newclient' do
+  # protected!
+  l = db.lastClient
+  nx =  db.findClient(l)
+  nx['CID'] = l + 1
+  haml :form, :locals => {
+     :c => nx,
+     :action => '/create'
+  }
+end
+# create new client
+post '/create' do
+#  p params
+  newClient(params)
+  redirect("client/#{params['CID']}")
+end
+
   
 get '/set' do
   session[:foo] = Time.now

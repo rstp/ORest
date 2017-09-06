@@ -49,34 +49,50 @@ class OrientDB
     @client.disconnect
   end
   
-  def findClient(id)
-    oneclient = @client.query("select from client where CID=#{id}")
+  ## find a client
+  #
+  # @param cid [string] the required client id (cid)
+  #
+  # @return object of all client
+  ##
+  def findClient(cid)
+    oneclient = @client.query("select from client where CID=#{cid}")
     if oneclient.size === 0
       nil
     end
-    oneclient
+    oneclient[0]
   end
+  
+  ## list all clients
+  #
+  # @param none
+  #
+  # @return list of all clients
+  ##
   def listClients
-    
-#    begin
-#      makeconnect(database)
-
-    @liste = @client.query("select from client") || {}
-
-#      response.each do |r|
-#         puts "nom => #{r['nom']} addresse => #{r['addresse']}"
-#         :tele => r["tele"] || "000"
-#      end
-#      @client.disconnect
-#    rescue => err
-#      puts "problem reading database = #{err}"
-#    end
-
+    liste = @client.query("select from client") || {}
   end
 
+  ## count number of clients in table
+  #
+  # @param none
+  #
+  # @return integer count of all clients
+  ##
   def countClients
     count = @client.query "select count(*) from client"
-    count[0]['count']    
+    count[0]['count'].to_i
+  end
+
+  ## next client id
+  #
+  # @param none
+  #
+  # @return integer last client id + 1
+  ##
+  def lastClient
+    last = @client.query "select max(CID) as last from client"
+    last[0]['last']
   end
 
 #end class OrientDB

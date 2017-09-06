@@ -1,27 +1,27 @@
-%h2 Nouveau contact
+%h2 "Nouveau Client ##{c['CID']}"
 %form(action="#{action}" method="POST")
   %table
     %tr
       %td{:width=>"150px;"}
-        %label(for="firstname") Pr&eacute;nom
+        %label(for="nom") Nom
       %td{:width=>"150px;"}
-        %input(type="text" name="firstname" value="#{c.firstname}")
+        %input(type="text" name="nom" value="#{c['nom']}")
     %tr
       %td
-        %label(for="lastname") Nom
+        %label(for="addresse") Nom
       %td
-        %input(type="text" name="lastname" value="#{c.lastname}")
+        %input(type="text" name="addresse" value="#{c['addresse']}")
   
     %tr
       %td
-        %label(for="email") Email
+        %label(for="tele") Telephone
       %td
-        %input(type="text" name="email" value="#{c.email}")
+        %input(type="text" name="tele" value="#{c['tele']}")
   
   %br
   %input(type="submit" value="Sauve")
   %input(type="reset")
 
-  - unless c.id == 0
-    %form(action="/contacts/#{c.id}/destroy" method="POST")
+  - unless c['CID'] == 0
+    %form(action="/client/#{c['CID']}" method="POST")
       %input(type="submit" value="Oublie")
