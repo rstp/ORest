@@ -1,15 +1,23 @@
 %a(href="/newclient") Ajoute un Contact
 %table
   %tr
-    %th{:width=>"100px;"}
-    %th{:width=>"100px;"}
-    %th{:width=>"300px;"}
+    %th.left{:width=>"100px;"} nom
+    %th.right{:width=>"100px;"} téléphone
+    %th{:width=>"30px;"}
+    %th.left{:width=>"300px;"}addresse
+    %th.left{:width=>"100px;"}CID
+  - nb=0
   - cs.each do|c|
+  - nb+=1
     %tr
       %td= c['nom']
-      %td= c['tele']
+      %td.right= c['tele']
+      %td
+      %td= c['addresse']
       %td= em(c['CID'])
       %td
         %a.red(href="/client/#{c['CID']}") Voir
       %td
         %a.blue(href="/client/#{c['CID']}/edit") Edit
+%br
+pour un total de #{nb} clients

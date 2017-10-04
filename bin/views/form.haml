@@ -17,11 +17,12 @@
         %label(for="tele") Telephone
       %td
         %input(type="text" name="tele" value="#{c['tele']}")
+        %input(type="hidden" name="CID" value="#{c['CID']}")
+        %input(type="hidden" name="@class" value="client")   
   
   %br
   %input(type="submit" value="Sauve")
   %input(type="reset")
 
-  - unless c['CID'] == 0
-    %form(action="/client/#{c['CID']}" method="POST")
-      %input(type="submit" value="Oublie")
+  %form(action="/client/#{c['CID']}/destroy" method="POST")
+  %input(type="submit" value="Oublie")

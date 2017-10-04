@@ -1,7 +1,7 @@
 
 require 'orientdb4r'
 require 'json'
-
+require 'OrientDB'
 ##
 #  Class to manage all accesses to the OrientDB database
 #
@@ -27,22 +27,37 @@ class OrientDB
 
   end
 
-  ## Establish a connection to the database
+  ## Establish a connection to the database 
   #
-  # @param database [string] the database to connect to
+  # @param DB [string] the database to connect to
   # @param user [string] the username, defaults to 'admin'
   # @param password [string] the user's password, defaults to 'admin'
   #
-  # @return object nil or the client's connection
+  # @return boolean connection status
   #
   ##
-  def makeconnection(database, user='admin', password='admin')
+  def makeconnection(db, user='admin', password='admin')
     begin
-      @client.connect :database => database, :user => user, :password => password
+      @client.connect :database => db, :user => user, :password => password
+      @client.connected?
     rescue => err
 #      puts "Error: cannot connect to db: #{err}"
       nil
     end
+  end
+
+
+  ## create a database 
+  #
+  # @param name [string] the database name
+  # @param opts [object] containing user,password and storage type
+  #
+  # @return boolean database creation status
+  #
+  ##
+  def createdb (name, opts={user: 'root', password: 'root', storage: :plocal})
+    @client.create_database :database=>name, :user=>opts['user'], :password=>opts['password'], :storage=>:plocal
+    @client.database_exists? :database=>name, :user=>'admin', :password=>'admin'
   end
 
   def disconnect
@@ -95,5 +110,17 @@ class OrientDB
     last[0]['last']
   end
 
-#end class OrientDB
-end
+  ## new client
+  #
+  # @param cl [object] properties of a client
+  #
+  # @return true/false success of client creation
+  ##
+  def newClient (cl)
+    cl['CLASS'] = "Client"
+    return @client.create_document( cl )
+  end
+
+
+#class OrientDB
+end 

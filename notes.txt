@@ -1,0 +1,53 @@
+sql={
+  "command": "insert into client CONTENT :cont",
+  "parameters": {
+    "cont":{'CID':6,'nom':'stp','tele':'1234','addresse':'mon addresse'}
+  }
+}  
+      ssql ="#{@urlp}/command/projets/sql/#{sql}"
+
+      
+http://admin:admin@localhost:2480/command/projets/sql/{"command":"insert into client CONTENT {'CID':6,'nom':'nomduclient'}"}
+
+
+
+
+
+	
+
+#Your sinatra app, don't match with http://localhost:4567/solve URL, so it's return a 404 from your server.
+
+#You need change your sinatra app by example :
+
+require "rubygems"
+require "sinatra"
+
+
+post '/solve/?' do 
+  jdata = params[:data]
+  for_json = JSON.parse(jdata)
+end
+
+#You have a problem with your RestClient request too. You need define the params name of jdata.
+
+response = RestClient.post 'http://localhost:4567/solve', {:data => jdata}, {:content_type => :json, :accept => :json}
+
+	
+
+#Try this:
+
+jdata = {:key => 'I am a value'}.to_json    
+response = RestClient.post 'http://localhost:4567/solve', :data => jdata, :content_type => :json, :accept => :json
+
+#And then try this:
+
+post '/solve' do 
+  jdata = JSON.parse(params[:data])
+  puts jdata
+end
+
+#I didn't test it but maybe you should send the json data as value rather than a key. Is is possible that you data looks like this: {:key => 'I am a value'} => nil. Your data does not necessary has to be in url at all. You don't need /solve/:data url. POST values are not to be send in url A good way to debug what you receive in your route is to print the params:
+
+puts params
+
+#Hope this helps!

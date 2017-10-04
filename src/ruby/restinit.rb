@@ -2,7 +2,7 @@ require 'json'
 require 'logger'
 require 'sinatra'
 require 'haml'
-require 'OrientDB'
+require 'odbutil'
 
 DEBUG = true
 
@@ -38,47 +38,60 @@ helpers do
   end
 end # helpers
 
-db = OrientDB.new
-db.makeconnection('projets')
-enable :static
+db = ODBUtil.new
+#db = OrientDB.new
+#db.makeconnection('projets')
+#enable :static
 
 get '/' do
   puts "bonjour\n"
+  redirect( "/clients/")
 end
   
 # form to show one client's details
 get '/client/:id' do
-  #  "client id=#{params[:id]}"
   id = params[:id].to_i
-  haml :show, :locals => { :c => db.findClient(id) }
+  liste = db.getClientInfo(id)
+  p liste
+  redirect("/clients/") if liste.nil?
+  liste.each {|x| p x} if DEBUG
+  haml :show, :locals => { :c => liste }
 end
 
 # show list of all clients
 get '/clients/?' do
-  nb = db.countClients
-  "voici les #{nb} contacts"
-#  p db.listClients if DEBUG
+#  nb = db.doQuery("select count(*) from client")[0]["count"].to_i    #db.countClients
   haml :list, :locals => { :cs => db.listClients }
 end
 
 # Show form to create new contact
 get '/newclient' do
   # protected!
-  l = db.lastClient
-  nx =  db.findClient(l)
-  nx['CID'] = l + 1
+  l = db.getLastCID
+  p l
+  lastclient =  db.getClientInfo(l)
+  l += 1
+  lastclient['CID'] = l
   haml :form, :locals => {
-     :c => nx,
+     :c => lastclient,
      :action => '/create'
   }
 end
 # create new client
 post '/create' do
-#  p params
-  newClient(params)
-  redirect("client/#{params['CID']}")
+  cid = params['CID']
+  if db.newClient(params)
+    redirect("/client/#{cid}")
+  else
+    redirect( "/clients/")
+  end
 end
 
+post '/client/:id/destroy' do|id|
+#   c = Contact.get(id)
+#   c.destroy
+   redirect "/clients/"
+end
   
 get '/set' do
   session[:foo] = Time.now
